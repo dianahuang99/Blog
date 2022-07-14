@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %}User List{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+    
+    <img src="{{user.image_url}}">
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <span>
+      <form>
+        <button class="btn btn-primary"
+                formaction="/users/{{ user.id }}/edit"
+                formmethod="GET">Edit
+        </button>
+        <button class="btn btn-danger"
+                formaction="/users/{{ user.id }}/delete"
+                formmethod="POST">Delete
+        </button>
+      </form>
+
+    {% endblock %}
+    

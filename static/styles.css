@@ -1,0 +1,33 @@
+div {
+  margin-bottom: 15px;
+}
+
+input[type="text"] {
+  margin: 10px;
+  width: 300px;
+}
+label {
+  margin: 10px;
+}
+.btn {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+img {
+  height: 250px;
+}
+
+h1 {
+  margin-left: 10px;
+}
+
+li a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
