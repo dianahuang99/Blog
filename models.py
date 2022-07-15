@@ -28,6 +28,8 @@ class User(db.Model):
 
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
+    posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
+
     @property
     def friendly_date(self):
         """Return nicely-formatted date."""
@@ -45,7 +47,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"))
-    user = db.relationship("User", backref="posts")
+    # user = db.relationship("User", backref="posts")
 
     @property
     def friendly_date(self):
@@ -53,7 +55,7 @@ class Post(db.Model):
 
         return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
-    tags = db.relationship("Tag", secondary="PostTag", backref="posts")
+    # tags = db.relationship("Tag", secondary="PostTag", backref="posts")
 
 
 class Tag(db.Model):
@@ -63,6 +65,13 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
+
+    posts = db.relationship(
+        "Post",
+        secondary="posts_tags",
+        cascade="all,delete",
+        backref="tags",
+    )
 
 
 class PostTag(db.Model):
