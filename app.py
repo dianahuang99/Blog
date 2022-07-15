@@ -276,4 +276,4 @@ def set_tags_new_post(user_id):
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect(f"/posts/{{new_post.id}}/edit/tags")
+    return redirect(f"/posts/{new_post.id}/edit/tags")
