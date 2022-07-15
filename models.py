@@ -55,7 +55,9 @@ class Post(db.Model):
 
         return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
-    # tags = db.relationship("Tag", secondary="PostTag", backref="posts")
+    tags = db.relationship(
+        "Tag", secondary="PostTag", cascade="all,delete", backref="posts"
+    )
 
 
 class Tag(db.Model):
@@ -66,12 +68,12 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
 
-    posts = db.relationship(
-        "Post",
-        secondary="posts_tags",
-        cascade="all,delete",
-        backref="tags",
-    )
+    # posts = db.relationship(
+    #     "Post",
+    #     secondary="PostTag",
+    #     cascade="all,delete",
+    #     backref="tags",
+    # )
 
 
 class PostTag(db.Model):

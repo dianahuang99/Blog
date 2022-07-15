@@ -97,7 +97,8 @@ def process_edit_user(user_id):
 @app.route("/users/<int:user_id>/delete", methods=["POST"])
 def delete_user(user_id):
     """Process the edit form, returning the user to the /users page."""
-    User.query.filter_by(id=f"{user_id}").delete()
+    user = User.query.filter_by(id=f"{user_id}").first()
+    db.session.delete(user)
     db.session.commit()
     return redirect("/users")
 
@@ -165,7 +166,7 @@ def delete_post(post_id):
     """Process the deletion, returning the user to the user info page."""
     post = Post.query.get(post_id)
     user = User.query.get(post.user_id)
-    Post.query.filter_by(id=f"{post_id}").delete()
+    db.session.delete(post)
     db.session.commit()
     return redirect(f"/users/{user.id}")
 
