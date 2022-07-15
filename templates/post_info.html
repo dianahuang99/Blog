@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block title %}User List{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+    <div class="d-flex flex-column">
+    <h1>{{post.title}}</h1>
+    <p>{{post.content}}</p>
+    <p><i>By {{post.user.first_name}} {{post.user.last_name}} on {{post.friendly_date}}</i></p>
+    <form>
+
+      {% if post.tags %}
+      <p>
+        <b>Tags:</b>
+        {% for tag in post.tags %}
+        <a href="/tags/{{tag.id}}"><i class="badge bg-primary">{{tag.name}}</i></a>
+        {% endfor %}
+      </p>
+      {% endif %} 
+
+    <a href="/users/{{post.user_id}}" class='btn btn-info' style="color: white">Cancel</a>
+    <a href="/posts/{{post.id}}/edit" class='btn btn-primary'>Edit</a>
+  </button>
+        <button class="btn btn-danger"
+        formaction="/posts/{{post.id}}/delete"
+        formmethod="POST">Delete
+</button>
+      </form>
+  </div>
+    {% endblock %}
+    

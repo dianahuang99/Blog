@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block title %}User List{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+    <div class="d-flex flex-column">
+    <h1>Set Tags</h1>
+    <form action="/users/{{user.id}}/posts/new/tags" method='post'>
+    <ul>
+      {%for tag in tags%}
+      
+      <div class="form-check form-switch">
+        
+        <input class="form-check-input" type="checkbox" role="switch" id="tag_{{tag.name}}" value="{{ tag.id }}"
+        name="tags">
+        <a href="/tags/{{tag.id}}" style="text-decoration: none;font-size: 18px">{{tag.name}}
+        <label class="form-check-label" for="tag_{{tag.name}}">{{tag.name}}</label>
+    </a>
+   
+      </div>
+      {%endfor%}
+  
+    </ul>
+      <button class="btn btn-primary">Set Tags
+      </button>
+    </form>
+  </div>
+    {% endblock %}
+    

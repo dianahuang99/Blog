@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title %}Hello{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+    <div class="d-flex flex-column" style="width: 400px">
+    <h1 class='text-center'>Edit a tag</h1>
+    <form action="/tags/{{tag.id}}/edit" method="post">
+      <div class="form-floating">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Tag name" value={{tag.name}} required>
+        <label for="name" class="form-label">Tag name</label>
+      </div>
+      <div class='text-center'>
+      <a href="/tags" class='btn btn-info' style="color:white">Cancel</a>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+    </form>
+  </div>
+    
+    {% endblock %}

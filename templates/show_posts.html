@@ -12,13 +12,20 @@
     </br>
     {%endif%} {%endwith%}
     <div class="d-flex flex-column">
-    <h1>Users</h1>
+    <h1>{{tag.name}}</h1>
     <ul>
-      {%for user in users%}
-      <li><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+      {%for post in tag.posts%}
+      <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
       {%endfor%}
     </ul>
-    <a href="/users/new"><button class="btn btn-secondary">Add User</button></a>
+    <form>
+      <a href="/tags/{{tag.id}}/edit" class='btn btn-primary'>Edit</a>
+    </button>
+          <button class="btn btn-danger"
+          formaction="/tags/{{tag.id}}/delete"
+          formmethod="POST">Delete
+  </button>
+        </form>
   </div>
     {% endblock %}
     

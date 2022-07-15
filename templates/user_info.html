@@ -13,8 +13,13 @@
     {%endif%} {%endwith%}
     
     <img src="{{user.image_url}}">
+   
+
+
+  <div class="d-flex flex-column">
+  
     <h1>{{user.first_name}} {{user.last_name}}</h1>
-    <span>
+      <div>
       <form>
         <button class="btn btn-primary"
                 formaction="/users/{{ user.id }}/edit"
@@ -25,6 +30,22 @@
                 formmethod="POST">Delete
         </button>
       </form>
+      
+    </div>
+
+    <p>User created: {{user.friendly_date}}</p>
+      <div style="margin-top: 10px">
+      <h1>Posts</h1> 
+          <ul>
+            {%for post in user.posts%}
+            <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+            {%endfor%}
+          </ul>
+          <a href="/users/{{user.id}}/posts/new"><button class="btn btn-primary">Add Post</button></a>
+        </div>
+
+      
+</div>
 
     {% endblock %}
     

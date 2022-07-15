@@ -12,13 +12,13 @@
     </br>
     {%endif%} {%endwith%}
     <div class="d-flex flex-column">
-    <h1>Users</h1>
+    <h1>Tags</h1>
     <ul>
-      {%for user in users%}
-      <li><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+      {%for tag in tags%}
+      <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
       {%endfor%}
     </ul>
-    <a href="/users/new"><button class="btn btn-secondary">Add User</button></a>
+    <a href="/tags/new"><button class="btn btn-secondary">Add Tag</button></a>
   </div>
     {% endblock %}
     

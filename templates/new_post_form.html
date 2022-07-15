@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block title %}Hello{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+
+    <div class="d-flex flex-column" style="width: 400px">
+      
+        <h1 class='text-center'>Add Post for {{user.first_name}}</h1>
+  
+        <form method="post">
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder='Title'
+              required>
+            <label for="title" class="form-label">Title</label>
+          </div>
+
+          <div class="form-floating">
+            
+            <textarea
+              id="content"
+              rows="10"
+              cols="10"
+              required
+              name="content"
+              class="form-control"
+              placeholder="Post Content"
+              style="height: 200px"
+            ></textarea>
+            <label for="content" class="form-label">Post content</label>
+          </div>
+          <div class='text-center'>
+          <a href="/users/{{user.id}}" class='btn btn-info' style="color: white">Cancel</a>
+
+      
+          
+            <button class="btn btn-warning" style="color: white"
+                    action="/users/{{user.id}}/posts/new/tags"
+                    formmethod="post">Set Tags
+            </button>
+      
+
+            <button class="btn btn-primary" style="color: white"
+            action="/users/{{user.id}}/posts/new"
+            formmethod="post">Add
+          </button>
+        </div>
+        </form>
+      </div>
+  
+    
+    {% endblock %}
+    

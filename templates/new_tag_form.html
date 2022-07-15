@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title %}Create a Tag{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+    <div class="d-flex flex-column" style="width: 400px">
+    <h1 class='text-center'>Create a tag</h1>
+    <form action="/tags/new" method="post">
+      <div class="form-floating">
+        <input type="text" class="form-control" id="name" name="name" placeholder="New tag name" required>
+        <label for="name" class="form-label">Tag name</label>
+      </div>
+      <div class='text-center'>
+      <a href="/tags" class='btn btn-info' style="color:white">Cancel</a>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+    </form>
+  </div>
+    
+    {% endblock %}

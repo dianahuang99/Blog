@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block title %}Hello{% endblock %} {% block content
+    %} {% with messages = get_flashed_messages(with_categories=true)%} {%if
+    messages%}
+    <section class="messages">
+      {% for category, msg in messages %}
+      <br />
+      <p class="{{category}}">{{msg}}</p>
+    
+      <br />
+      {% endfor %}
+    </section>
+    </br>
+    {%endif%} {%endwith%}
+
+    <div class="d-flex flex-column" style="width: 400px">
+      
+        <h1 class='text-center'>Edit Post</h1>
+        <form action="/posts/{{post.id}}/edit" method="post">
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder='Title' value='{{post.title}}'
+              required>
+            <label for="title" class="form-label">Title</label>
+          </div>
+
+          <div class="form-floating">
+            
+            <textarea
+              id="content"
+              rows="10"
+              cols="10"
+              required
+              name="content"
+              class="form-control"
+              placeholder="Post Content"
+              style="height: 200px"
+            >{{post.content}}</textarea>
+            <label for="content" class="form-label">Post content</label>
+          </div>
+          
+
+
+
+
+          <div class='text-center'>
+          <a href="/posts/{{post.id}}" class='btn btn-info' style="color: white">Cancel</a>
+          <a href="/posts/{{post.id}}/edit/tags" class='btn btn-warning' style="color: white">Set Tags</a>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+        </form>
+      </div>
+  
+    
+    {% endblock %}
+    

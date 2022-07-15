@@ -11,36 +11,65 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
+
 class User(db.Model):
     """User"""
 
     __tablename__ = "User"
 
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    first_name = db.Column(db.Text,
-                     nullable=False)
-    last_name = db.Column(db.Text,
-                     nullable=False)
-    image_url = db.Column(db.Text, nullable=False, default="https://thevoicefinder.com/wp-content/themes/the-voice-finder/images/default-img.png")
-                          
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.Text, nullable=False)
+    last_name = db.Column(db.Text, nullable=False)
+    image_url = db.Column(
+        db.Text,
+        nullable=False,
+        default="https://thevoicefinder.com/wp-content/themes/the-voice-finder/images/default-img.png",
+    )
+
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
-# class Post(db.Model):
-#     """Post"""
+    @property
+    def friendly_date(self):
+        """Return nicely-formatted date."""
 
-#     __tablename__ = "Post"
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
-#     id = db.Column(db.Integer,
-#                    primary_key=True,
-#                    autoincrement=True)
-#     title = db.Column(db.Text,
-#                      nullable=False)
-#     context = db.Column(db.Text,
-#                      nullable=False)
-#     created_at = db.Column(db.Text, nullable=False)
-#     user_id = db.Column(
-#         db.Text,
-#         db.ForeignKey('User.id'))
-#     user = db.relationship('User', backref='posts')
+
+class Post(db.Model):
+    """Post"""
+
+    __tablename__ = "Post"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"))
+    user = db.relationship("User", backref="posts")
+
+    @property
+    def friendly_date(self):
+        """Return nicely-formatted date."""
+
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+
+    tags = db.relationship("Tag", secondary="PostTag", backref="posts")
+
+
+class Tag(db.Model):
+    """Tag"""
+
+    __tablename__ = "Tag"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+
+class PostTag(db.Model):
+    """PostTag"""
+
+    __tablename__ = "PostTag"
+
+    post_id = db.Column(db.Integer, db.ForeignKey("Post.id"), primary_key=True)
+
+    tag_id = db.Column(db.Integer, db.ForeignKey("Tag.id"), primary_key=True)
